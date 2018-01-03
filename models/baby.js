@@ -20,7 +20,8 @@ var baby_Schema =  new Schema({
         2：已毕业
     */
     member_lx:String, //会员卡类型
-    course_count: Number,//课程次数
+    init_count:Number,//初始课程次数
+    course_count: Number,//剩余课程次数
     case:String,//病史
     allergy:String,//过敏史
     hobby:String,//爱好

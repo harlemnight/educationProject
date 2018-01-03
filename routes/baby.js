@@ -83,6 +83,7 @@ router.post('/add', function(req, res) {
             hobby:req.body.hobby,
             character:req.body.character,
             member_lx:req.body.member_lx,
+            init_count:req.body.course_count,
             course_count:req.body.course_count
         }
     );
