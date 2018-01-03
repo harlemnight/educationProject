@@ -1,0 +1,251 @@
+<% include ../header2.html %>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">添加宝贝信息</h1>
+    <div class="row placeholders">
+    <form class="form-horizontal" id="baby_form"  action="/baby/modify" method="post" onsubmit="return formCheck()">
+        <div class="form-group">
+            <label for="baby_name" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="baby_name"
+                       id="baby_name" placeholder="姓名"
+                       value="<% if(locals.baby) {%><%=baby.baby_name%><%}%>"
+                       required autofocus
+                       maxlength="20"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="age" class="col-sm-2 control-label">年龄</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="age"
+                       id="age" placeholder="年龄"
+                       value="<% if(locals.baby) {%><%=baby.age%><%}%>"
+                       maxlength="3"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="birthday"  class="col-sm-2 control-label">出生日期</label>
+            <div class="col-sm-10">
+                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" >
+                    <input type="text" class="form-control" name="birthday"
+                           id = "birthday"
+                           value="<% if(locals.baby) {%><%=toLocalDate(baby.birthday) %><%}%>"
+                           readonly
+                    >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="father" class="col-sm-2 control-label">父亲</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="father"
+                       id="father" placeholder="父亲"
+                       value="<% if(locals.baby) {%><%=baby.father%><%}%>"
+                       maxlength="20"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mather" class="col-sm-2 control-label">母亲</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="mather"
+                       id="mather" placeholder="母亲"
+                       value="<% if(locals.baby) {%><%=baby.mather%><%}%>"
+                       maxlength="20"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="grandpa" class="col-sm-2 control-label">（外）祖父</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="grandpa"
+                       id="grandpa" placeholder="（外）祖父"
+                       value="<% if(locals.baby) {%><%=baby.grandpa%><%}%>"
+                       maxlength="20"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="grandma" class="col-sm-2 control-label">（外）祖母</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="grandma"
+                       id="grandma" placeholder="（外）祖母"
+                       value="<% if(locals.baby) {%><%=baby.grandma%><%}%>"
+                       maxlength="20"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_no1" class="col-sm-2 control-label">联系电话1</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="phone_no1"
+                       id="phone_no1" placeholder="联系电话1"
+                       value="<% if(locals.baby) {%><%=baby.phone_no1%><%}%>"
+                       required
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone_no2" class="col-sm-2 control-label">联系电话2</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="phone_no2"
+                       id="phone_no2" placeholder="联系电话2"
+                       value="<% if(locals.baby) {%><%=baby.phone_no2%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="home_address" class="col-sm-2 control-label">联系地址</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="home_address"
+                       id="home_address" placeholder="联系地址"
+                       value="<% if(locals.baby) {%><%=baby.home_address%><%}%>"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="member_lx" class="col-sm-2 control-label">会员类型</label>
+            <div class="col-sm-10">
+                <select class="form-control"  id="member_lx"  name="member_lx" required >
+                    <option  ></option>
+                    <option value="次卡"   <% if(baby.member_lx==="次卡") {%> selected  <% } %>>次卡</option>
+                    <option value=月卡     <% if(baby.member_lx==="月卡") {%> selected  <% } %>>月卡</option>
+                    <option value="季卡"   <% if(baby.member_lx==="季卡") {%> selected  <% } %>>季卡</option>
+                    <option value="半年卡" <% if(baby.member_lx==="半年卡") {%> selected  <% } %>>半年卡</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="course_count" class="col-sm-2 control-label">课程天数</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="course_count"
+                       id="course_count" placeholder="课程天数"
+                       value="<% if(locals.baby) {%><%=baby.course_count%><%}%>"
+                       required
+                >
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+            <label for="case" class="col-sm-2 control-label">病史</label>
+            <div class="col-sm-10">
+                <textarea  class="form-control" name="case"
+                           id="case" placeholder="病史"
+                ><% if(locals.baby) {%><%=baby.case%><%}%></textarea>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="allergy" class="col-sm-2 control-label">过敏史</label>
+            <div class="col-sm-10">
+                <textarea  class="form-control" name="allergy"
+                           id="allergy" placeholder="过敏史"
+
+                ><% if(locals.baby) {%><%=baby.allergy%><%}%></textarea>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label  class="col-sm-2 control-label">其他</label>
+        </div>
+        <div class="form-group">
+            <label for="hobby" class="col-sm-2 control-label">爱好</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" name="hobby"
+                       id="hobby" placeholder="爱好"
+                       value="<% if(locals.baby) {%><%=baby.hobby%><%}%>"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="character" class="col-sm-2 control-label">性格</label>
+            <div class="col-sm-10">
+                <input type="text"   class="form-control" name="character"
+                       id="character" placeholder="性格"
+                       value="<% if(locals.baby) {%><%=baby.character%><%}%>"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">修改</button>
+                <input type="hidden" name="_id"
+                       value="<% if(locals.baby) {%><%=baby._id %><%}%>"
+                >
+            </div>
+        </div>
+    </form>
+
+
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#baby_form').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                birthday: {
+                    validators: {
+                        notEmpty: {
+                            message: '出生日期不能为空'
+                        }
+                    }
+                },
+
+                age: {
+                    validators: {
+                        numeric: {message: '年龄只能输入数字'}
+                    }
+                },
+                course_count: {
+                    validators: {
+                        numeric: {message: '课程天数只能输入数字'}
+                    }
+                }
+            }
+        })
+        ;
+    });
+
+    /*
+     * 当点击了确定下单的按钮后调用此方法
+     * 然后执行表单校验
+     * */
+
+
+    function formCheck() {
+        //表单提交前再进行一次验证
+        var bootstrapValidator = $("#baby_form").data('bootstrapValidator');
+        //如果验证通过()则提交表单
+        return bootstrapValidator.validate();
+    };
+
+
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    }).on('changeDate show', function (e) {
+        //datepicker 与 bootstrapValidator存在冲突 修改日期后不重新验证
+        $('#baby_form').bootstrapValidator('revalidateField', 'birthday');
+    });
+</script>
+<% include ../footer2.html %>

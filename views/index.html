@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>爱乐萌宝贝中心</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" >
+    <link href="/stylesheets/main.css" rel="stylesheet" >
+    <link href="/stylesheets/dashboard.css" rel="stylesheet">
+    <link href="/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" >
+    <link href="/bootstrapvalidator-master/dist/css/bootstrapValidator.min.css" rel="stylesheet" >
+
+
+    <script type="text/javascript" src="/javascripts/jquery/jquery-3.2.1.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/3.3.7/js/bootstrap.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrapvalidator-master/dist/js/bootstrapValidator.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrapvalidator-master/dist/js/language/zh_CN.js" charset="UTF-8"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h2>File validator</h2>
+            </div>
+
+            <form id="defaultForm" method="post" class="form-horizontal" onsubmit="return onsubmitFn()">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">File</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" name="name" />
+                        <span class="help-block">请填写您的姓名</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-4">
+                        <button type="submit" class="btn btn-primary" name="filevalidate" value="Validate">Validate</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                name: {
+                    validators: {
+                        notEmpty: {
+                            message: '请填写您的姓名'
+                        }
+                    }
+                }
+            }
+        })
+        ;
+    });
+
+    /*
+     * 当点击了确定下单的按钮后调用此方法
+     * 然后执行表单校验
+     * */
+
+    function onsubmitFn() {
+        //表单提交前再进行一次验证
+        var bootstrapValidator = $("#defaultForm").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        //如果验证通过()则提交表单
+        return bootstrapValidator.validate();
+    }
+</script>
+
+
+
+</body>
+
+</html>

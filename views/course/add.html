@@ -1,0 +1,118 @@
+<% include ../header2.html %>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">创建课程记录卡</h1>
+    <div class="row placeholders">
+        <form id="course_form" name="course_form" class="form-inline"
+                method="post" action="/course/add" onsubmit="return formCheck()">
+            <div class="form-group">
+                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" >
+                    <input type="text" class="form-control" name="course_rq"
+                           id = "course_rq" placeholder="课程日期"
+                           value="<%=locals.course_rq %>"
+                           readonly
+                    >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <select class="form-control"  id="course_time"  name="course_time"  required >
+                    <option  ></option>
+                    <option value="上午"  <% if(locals.course_time==="上午") {%> selected  <% } %> >上午</option>
+                    <option value="下午"  <% if(locals.course_time==="下午") {%> selected  <% } %> >下午</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">保存记录卡</button>
+
+            <% if(locals.msg) { %>
+                <%if(locals.status) { %>
+                    <div class="alert alert-success"  role="alert">
+                        <%=msg %>!
+                    </div>
+                <% }else { %>
+                    <div class="alert alert-danger"  role="alert">
+                        <%=msg %>!
+                    </div>
+                <% }
+             }%>
+
+
+    </div>
+            <div class="table-responsive" >
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width:20%;">姓名</th>
+                        <th style="width:20%;">父亲</th>
+                        <th style="width:20%;">母亲</th>
+                        <th style="width:20%;">联系电话1</th>
+                        <th style="width:20%;"><input type="checkbox" onclick="selectAll(this);"  >全选</th>
+                    </tr>
+                    </thead>
+                    <% if (babies.length) { %>
+                    <tbody>
+                    <% babies.forEach(function(baby){ %>
+                    <tr>
+                        <td><%= baby.baby_name %></td>
+                        <td><%= baby.father %></td>
+                        <td><%= baby.mather %></td>
+                        <td><%= baby.phone_no1 %></td>
+                        <td><input type="checkbox" name="baby_id"
+                                   value="<%=baby._id %>">
+                        </td>
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                    <% } %>
+                    <tr>
+                        <td></td><td></td><td></td><td></td>
+                        <td>
+                            <a href="/course/add?page=<%=parseInt(pageNum) -1 %>" >上一页</a>
+                            |
+                            <%=parseInt(pageNum) %>
+                            |
+                            <a href="/course/add?page=<%=parseInt(pageNum) +1 %>" >下一页</a>
+                            共<%=pageTotal %>页
+                            <input type="text" id="pageNum" style="width:30px;"/>
+                            <a href="javascript:void(0);" onclick="forward()">跳转</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function selectAll(checkbox) {
+    $('input[type=checkbox]').prop('checked', $(checkbox).prop('checked'));
+    };
+    function forward(){
+        var page = $('#pageNum').val();
+        window.location.href='/course/add?page='+page;
+    };
+    function formCheck(){
+        var rq = $('#course_rq').val();
+        if ( rq.length==0){
+            alert("请输入课程日期");
+            return false;
+        }else {
+        return true;
+        }
+    };
+
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+
+<% include ../footer2.html %>

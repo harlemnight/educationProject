@@ -1,0 +1,74 @@
+<% include ../header2.html %>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">员工信息</h2>
+    <div class="row placeholders">
+        <form class="navbar-form navbar-right"  action="/employee/list" method="get">
+            <input type="text" class="form-control" name="searchparams"
+                   placeholder="姓名/电话" id="searchparams"
+                   value="<%=locals.searchparams %>" >
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>账户名</th>
+                    <th>年龄</th>
+                    <th>邮箱</th>
+                    <th>联系电话1</th>
+                    <th>联系电话2</th>
+                    <th>联系地址</th>
+                    <th></th>
+                    <th><a href="/employee/add">添加</a></th>
+                </tr>
+                </thead>
+                <% if (status) { %>
+                <% if (employees.length) { %>
+                <tbody>
+                <% employees.forEach(function(employee){ %>
+                <tr>
+                    <td><%= employee.employee_name %></td>
+                    <td><%= employee.age %></td>
+                    <td><%= employee.email %></td>
+                    <td><%= employee.phone_no1 %></td>
+                    <td><%= employee.phone_no2 %></td>
+                    <td><%= employee.home_address %></td>
+                    <td><a href="/employee/modify/<%=employee._id %>">修改</a></td>
+                    <td><a href="/employee/delete?id=<%=employee._id %>"
+                           onclick="if(confirm('确定删除?')==false)return false;">删除</a></td>
+                </tr>
+                <% }) %>
+                </tbody>
+                <% } %>
+                <% } else {%>
+                <% } %>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
+                        |
+                        <%=parseInt(pageNum) %>
+                        |
+                        <a href="javascript:void(0);" onclick="forward(1)">下一页</a>
+                        共<%=pageTotal %>页
+                        <input type="text" id="pageNum" style="width:30px;"/>
+                        <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
+                    </td>
+
+                </tr>
+
+            </table>
+    </div>
+</div>
+<% include ../footer2.html %>
+
+<script type="text/javascript">
+
+    function forward(pg){
+        var page = (pg==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ pg;
+        window.location.href='/employee/list?page='+page+'&searchparams='+$('#searchparams').val();
+    };
+
+
+</script>

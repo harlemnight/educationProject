@@ -1,0 +1,168 @@
+<% include ../header2.html %>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">添加宝贝信息</h1>
+    <div class="row placeholders">
+    <form class="form-horizontal"  action="/baby/modify" method="post">
+        <div class="form-group">
+            <label for="baby_name" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="baby_name"
+                       id="baby_name" placeholder="姓名"
+                       value="<% if(locals.baby) {%><%=baby.baby_name%><%}%>"
+                       required autofocus
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="age" class="col-sm-2 control-label">年龄</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="age"
+                       id="age" placeholder="年龄"
+                       value="<% if(locals.baby) {%><%=baby.age%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday" class="col-sm-2 control-label">出生日期</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="birthday"
+                       id="birthday" placeholder="出生日期"
+                       value="<% if(locals.baby) {%><%=toLocalDate(baby.birthday) %><%}%>"
+                       required
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="father" class="col-sm-2 control-label">父亲</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="father"
+                       id="father" placeholder="父亲"
+                       value="<% if(locals.baby) {%><%=baby.father%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mather" class="col-sm-2 control-label">母亲</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="mather"
+                       id="mather" placeholder="母亲"
+                       value="<% if(locals.baby) {%><%=baby.mather%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="grandpa" class="col-sm-2 control-label">（外）祖父</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="grandpa"
+                       id="grandpa" placeholder="（外）祖父"
+                       value="<% if(locals.baby) {%><%=baby.grandpa%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="grandma" class="col-sm-2 control-label">（外）祖母</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="grandma"
+                       id="grandma" placeholder="（外）祖母"
+                       value="<% if(locals.baby) {%><%=baby.grandma%><%}%>"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_no1" class="col-sm-2 control-label">联系电话1</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="phone_no1"
+                       id="phone_no1" placeholder="联系电话1"
+                       value="<% if(locals.baby) {%><%=baby.phone_no1%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone_no2" class="col-sm-2 control-label">联系电话2</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="phone_no2"
+                       id="phone_no2" placeholder="联系电话2"
+                       value="<% if(locals.baby) {%><%=baby.phone_no2%><%}%>"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="home_address" class="col-sm-2 control-label">联系地址</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="home_address"
+                       id="home_address" placeholder="联系地址"
+                       value="<% if(locals.baby) {%><%=baby.home_address%><%}%>"
+                >
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+            <label for="case" class="col-sm-2 control-label">病史</label>
+            <div class="col-sm-10">
+                <textarea  class="form-control" name="case"
+                           id="case" placeholder="病史"
+                ><% if(locals.baby) {%><%=baby.case%><%}%></textarea>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="allergy" class="col-sm-2 control-label">过敏史</label>
+            <div class="col-sm-10">
+                <textarea  class="form-control" name="allergy"
+                           id="allergy" placeholder="过敏史"
+
+                ><% if(locals.baby) {%><%=baby.allergy%><%}%></textarea>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label  class="col-sm-2 control-label">其他</label>
+        </div>
+        <div class="form-group">
+            <label for="hobby" class="col-sm-2 control-label">爱好</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" name="hobby"
+                       id="hobby" placeholder="爱好"
+                       value="<% if(locals.baby) {%><%=baby.hobby%><%}%>"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="character" class="col-sm-2 control-label">性格</label>
+            <div class="col-sm-10">
+                <input type="text"   class="form-control" name="character"
+                       id="character" placeholder="性格"
+                       value="<% if(locals.baby) {%><%=baby.character%><%}%>"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">修改</button>
+                <input type="hidden" name="_id"
+                       value="<% if(locals.baby) {%><%=baby._id %><%}%>"
+                >
+            </div>
+        </div>
+    </form>
+
+    <% if(locals.status) { %>
+    <% if(locals.status=true) { %>
+        <div class="alert alert-success"  role="alert">
+            <%= baby.baby_name %> <%=msg %>!
+        </div>
+    <% }else {
+    %>
+        <div class="alert alert-danger" role="alert">
+            <%=msg %>
+        </div>
+    <%}%>
+    <%}%>
+</div>
+
+</div>
+</div>
+<% include ../footer2.html %>

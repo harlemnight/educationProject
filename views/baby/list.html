@@ -1,0 +1,94 @@
+<% include ../header2.html %>
+<script>
+    //js赋值方法：<!--前端使用 moment -->
+    //alert(moment(<= baby.birthday>).format('YYYY-MM-DD'));
+</script>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<h2 class="sub-header">宝贝信息</h2>
+    <div class="row placeholders">
+            <form class="navbar-form navbar-right" action="/baby/list" method="get"  >
+                <input type="text" class="form-control" name="searchparams"
+                       id="searchparams"  placeholder="姓名/电话/父亲/母亲"
+                        value="<%=locals.searchparams %>"
+                >
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+    </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="width:10%;">姓名</th>
+                    <th style="width:10%;">年龄</th>
+                    <th style="width:10%;">出生日期</th>
+                    <th style="width:10%;">父亲</th>
+                    <th style="width:10%;">母亲</th>
+                    <th style="width:10%;">联系电话1</th>
+                    <th style="width:20%;">联系地址</th>
+                    <th></th>
+                    <th style="width:20%;" ><a href="/baby/add">添加</a></th>
+                </tr>
+                </thead>
+                <% if (status) { %>
+                    <% if (babies.length) { %>
+                        <tbody>
+                        <% babies.forEach(function(baby){ %>
+                        <tr>
+                            <td ><%= baby.baby_name %></td>
+                            <td><%= baby.age %></td>
+                            <td ><%= toLocalDate(baby.birthday) %></td>
+                            <td><%= baby.father %></td>
+                            <td ><%= baby.mather %></td>
+                            <td><%= baby.phone_no1 %></td>
+                            <td><%= baby.home_address %></td>
+                            <td ></td>
+                            <td >
+                                <a href="/baby/modify/<%=baby._id %>">修改</a>
+                                <a href="/baby/delete?id=<%=baby._id %>"
+                                   onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    <% } %>
+                <% } else {%>
+                <% } %>
+                <tr>
+                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td>
+                    <td></td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
+                        |
+                        <%=parseInt(pageNum) %>
+                        |
+                        <a href="javascript:void(0);" onclick="forward(1)">下一页</a>
+                        共<%=pageTotal %>页
+                        <input type="text" id="pageNum" style="width:30px;"/>
+                        <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function forward(pg){
+        var page = (pg==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ pg;
+        window.location.href='/baby/list?page='+page+'&searchparams='+$('#searchparams').val();
+    };
+
+
+
+    function check() {
+        //表单提交前再进行一次验证
+        var bootstrapValidator = $("#baby_form").data('bootstrapValidator');
+        //如果验证通过()则提交表单
+        return bootstrapValidator.validate();
+    };
+
+
+</script>
+<% include ../footer2.html %>

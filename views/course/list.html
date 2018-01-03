@@ -1,0 +1,140 @@
+<% include ../header2.html %>
+<script>
+    //js赋值方法：<!--前端使用 moment -->
+    //alert(moment(<= baby.birthday>).format('YYYY-MM-DD'));
+</script>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">课程记录</h2>
+
+        <form id="course_form" name="course_form" class="form-inline"  action="/course/list" method="get"  >
+            <div class="form-group">
+                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" >
+                    <input type="text" class="form-control" name="course_rqq"
+                           id = "course_rqq" placeholder="课程日期起"
+                           value="<%=locals.course_rqq %>"
+                           readonly
+                    >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" >
+                    <input type="text" class="form-control" name="course_rqz"
+                           id = "course_rqz" placeholder="课程日期止"
+                           value="<%=locals.course_rqz %>"
+                           readonly
+                    >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="baby_name"  name="baby_name" placeholder="宝贝姓名"
+                       value="<%=locals.baby_name %>"
+                >
+            </div>
+            <button type="submit" class="btn btn-default" onclick="forward(2)">查询</button>
+
+            <div class="table-responsive" >
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width:15%;">课程日期</th>
+                        <th style="width:10%;">课程时段</th>
+                        <th style="width:10%;">姓名</th>
+                        <th style="width:10%;">父亲</th>
+                        <th style="width:10%;">母亲</th>
+                        <th style="width:10%;">联系电话1</th>
+                        <th style="width:18%;">操作</th>
+                    </tr>
+                    </thead>
+                    <% if (courses.length) { %>
+                        <tbody>
+                        <% courses.forEach(function(course){ %>
+                        <tr>
+                            <td><%= toLocalDate(course.course_rq)  %></td>
+                            <td><%= course.course_time %></td>
+                            <td><%= course.baby_name %></td>
+                            <td><%= course.father %></td>
+                            <td><%= course.mather %></td>
+                            <td><%= course.phone_no1 %></td>
+                            <td><a href="/course/delete?id=<%=course._id %>"
+                                       onclick="if(confirm('确定作废?')==false)return false;">作废</a></td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    <% } %>
+                    <tr>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
+                            |
+                            <%=parseInt(pageNum) %>
+                            |
+                            <a href="javascript:void(0);" onclick="forward(1)">下一页</a>
+                            共<%=pageTotal %>页
+                            <input type="text" id="pageNum" style="width:30px;"/>
+                            <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+</div>
+
+
+
+<script type="text/javascript">
+    function forward(pg){
+        if (pg<2) {
+            var page = (pg==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ pg;
+            window.location.href='/course/list?page='+page+'&baby_name='+$('#baby_name').val();
+        }else {
+            window.location.href='/course/list?baby_name='+$('#baby_name').val()+
+                        '&course_rqq='+$('#course_rqq').val()+
+                        '&course_rqz='+$('#course_rqz').val();
+        }
+    };
+
+    function formCheck(){
+        /*
+        var rqz = $('#course_rqz').val();
+        var rqq = $('#course_rqq').val();
+        var baby_name = $("#baby_name").val();
+        if (baby_name.length==0) {
+            if ( (rqq.length>0 && rqz.length==0) || (rqz.length>0 && rqq.length==0)){
+                 alert("课程日期起止必须同时选择");
+            }else {
+                if (DateDiff(rqz,rqq) > 30 ) {
+                    alert("起止日期建议不超过30天");
+                }
+            }
+        }
+        */
+    }
+
+    function  DateDiff(sDate1,  sDate2){    //sDate1和sDate2是2006-12-18格式
+        var  aDate,  oDate1,  oDate2,  iDays
+        aDate  =  sDate1.split("-")
+        oDate1 = new Date(aDate[0] , aDate[1] ,aDate[2]) //转换为12-18-2006格式
+        aDate = sDate2.split("-")
+        oDate2 = new Date(aDate[0] , aDate[1] , aDate[2])
+        iDays  =  parseInt(Math.abs(oDate1  -  oDate2)  /  1000  /  60  /  60  /24)    //把相差的毫秒数转换为天数
+        return  iDays;
+    }
+
+
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+
+<% include ../footer2.html %>
