@@ -56,7 +56,7 @@ router.get('/list', function(req, res) {
     var searchparams = req.query.searchparams;
     var num = req.query.page;
     var pageNum = 0;
-    var pageSize = 3;
+    var pageSize = 10;
     if ( num == undefined || num <= 1) {
         pageNum = 1;
     }else {

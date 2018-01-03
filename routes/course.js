@@ -13,7 +13,7 @@ router.get('/list', function(req, res) {
     var course_rqz = req.query.course_rqz;
     var num = req.query.page;
     var pageNum = 0;
-    var pageSize = 3;
+    var pageSize = 20;
     if ( num == undefined || num <= 1) {
         pageNum = 1;
     }else {
@@ -75,7 +75,7 @@ router.get('/add',function(req, res) {
 
     var num = req.query.page;
     var pageNum = 0;
-    var pageSize = 3;
+    var pageSize = 20;
     if ( num == undefined || num <= 1) {
         pageNum = 1;
     }else {
@@ -91,7 +91,13 @@ router.get('/add',function(req, res) {
             else {
                 Baby.count(condition,function(err,count) {
                     var pageTotal = Math.ceil(count / pageSize);
-                    res.render('course/add', {status: true, babies: babies, pageNum: pageNum, pageTotal: pageTotal});
+                    res.render('course/add', {  status: true,
+                                                babies: babies,
+                                                pageNum: pageNum,
+                                                pageTotal: pageTotal,
+                                                course_rq : req.query.course_rq,
+                                                course_time : req.query.course_time
+                                             });
                 })
             }
         }).limit(pageSize).skip(offset).sort({'lrrq':-1});
@@ -126,7 +132,7 @@ router.post('/add', function(req, res) {
                         res.render('course/add', {status:false,msg:err.toString()});
                     } else {
                         var pageNum = 1;
-                        var pageSize = 3;
+                        var pageSize = 20;
                         var offset = (pageNum-1)*pageSize;
                     Baby.find({yxbz:'Y',course_count:{$gt: 0}},//这里是查询条件如果没有条件就是查询所有的数据，此参数可不传递  name: /周/
                         function (err, babies) {
@@ -134,18 +140,15 @@ router.post('/add', function(req, res) {
                                 res.render('course/add', { status:false,msg:err.toString()});
                             }
                             else {
-                                Baby.count({yxbz:'Y'},function(err,count) {
+                                Baby.count({yxbz:'Y',course_count:{$gt: 0}},function(err,count) {
                                     var pageTotal = Math.ceil(count / pageSize);
-                                    var course_rq = req.body.course_rq+req.query.course_rq;
-                                    var course_time = req.body.course_time+req.query.course_time;
-
                                     res.render('course/add', {  status:true,
                                                                 msg:'保存记录卡成功',
                                                                 babies:babies,
                                                                 pageNum:pageNum,
                                                                 pageTotal: pageTotal,
-                                                                course_rq : course_rq,
-                                                                course_time : course_time
+                                                                course_rq : req.body.course_rq,
+                                                                course_time : req.body.course_time
                                                             });
                                 })
                             }
