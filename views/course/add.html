@@ -67,14 +67,14 @@
                     <tr>
                         <td></td><td></td><td></td><td></td>
                         <td>
-                            <a href="/course/add?page=<%=parseInt(pageNum) -1 %>" >上一页</a>
+                            <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
                             |
                             <%=parseInt(pageNum) %>
                             |
-                            <a href="/course/add?page=<%=parseInt(pageNum) +1 %>" >下一页</a>
+                            <a href="javascript:void(0);" onclick="forward(1)">下一页</a>
                             共<%=pageTotal %>页
                             <input type="text" id="pageNum" style="width:30px;"/>
-                            <a href="javascript:void(0);" onclick="forward()">跳转</a>
+                            <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
                         </td>
                     </tr>
                 </table>
@@ -89,13 +89,14 @@
     function selectAll(checkbox) {
     $('input[type=checkbox]').prop('checked', $(checkbox).prop('checked'));
     };
-    function forward(){
-        var page = $('#pageNum').val();
-        window.location.href='/course/add?page='+page;
+    function forward(next){
+        var page = (next==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ next;
+        window.location.href='/course/add?page='+page+'&course_time='+$('#course_time').val()+
+            '&course_rq='+$('#course_rq').val();
     };
+
     function formCheck(){
-        var rq = $('#course_rq').val();
-        if ( rq.length==0){
+        if ( $('#course_rq').val().length==0){
             alert("请输入课程日期");
             return false;
         }else {

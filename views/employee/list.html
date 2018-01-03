@@ -65,8 +65,8 @@
 
 <script type="text/javascript">
 
-    function forward(pg){
-        var page = (pg==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ pg;
+    function forward(next){
+        var page = (next==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ next;
         window.location.href='/employee/list?page='+page+'&searchparams='+$('#searchparams').val();
     };
 

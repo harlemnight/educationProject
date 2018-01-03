@@ -68,15 +68,15 @@
                     <tr>
                         <td></td><td></td><td></td><td></td><td></td><td></td>
                         <td>
-                            <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
-                            |
-                            <%=parseInt(pageNum) %>
-                            |
-                            <a href="javascript:void(0);" onclick="forward(1)">下一页</a>
-                            共<%=pageTotal %>页
-                            <input type="text" id="pageNum" style="width:30px;"/>
-                            <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
-                        </td>
+                        <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
+                        |
+                        <%=parseInt(pageNum) %>
+                        |
+                        <a href="javascript:void(0);" onclick="forward(1)">下一页</a>
+                        共<%=pageTotal %>页
+                        <input type="text" id="pageNum" style="width:30px;"/>
+                        <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
+                    </td>
                     </tr>
                 </table>
             </div>
@@ -86,15 +86,11 @@
 
 
 <script type="text/javascript">
-    function forward(pg){
-        if (pg<2) {
-            var page = (pg==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ pg;
-            window.location.href='/course/list?page='+page+'&baby_name='+$('#baby_name').val();
-        }else {
-            window.location.href='/course/list?baby_name='+$('#baby_name').val()+
-                        '&course_rqq='+$('#course_rqq').val()+
-                        '&course_rqz='+$('#course_rqz').val();
-        }
+    function forward(next){
+            var page = (next==0)?$('#pageNum').val():parseInt('<%=pageNum%>')+ next;
+            window.location.href='/course/list?page='+page+'&baby_name='+$('#baby_name').val()+
+                '&course_rqq='+$('#course_rqq').val()+
+                '&course_rqz='+$('#course_rqz').val();
     };
 
     function formCheck(){

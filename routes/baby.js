@@ -24,7 +24,7 @@ router.get('/list', function(req, res) {
         pageNum = num;
     }
     var offset = (parseInt(pageNum)-1)*pageSize;
-    var condition ;
+    var condition = {} ;
     if (searchparams==undefined||searchparams==""){
         condition = {yxbz:'Y'};
     }else {
@@ -33,7 +33,8 @@ router.get('/list', function(req, res) {
             {"father":searchparams},
             {"mather":searchparams}]
         };
-    }
+    };
+
     Baby.find(condition,//这里是查询条件如果没有条件就是查询所有的数据，此参数可不传递  name: /周/
                 function (err, babies) {
                     if (err) {
