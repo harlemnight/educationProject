@@ -35,6 +35,7 @@ router.get('/list', function(req, res) {
         };
     };
 
+    console.log(__dirname);
     Baby.find(condition,//这里是查询条件如果没有条件就是查询所有的数据，此参数可不传递  name: /周/
                 function (err, babies) {
                     if (err) {
@@ -48,7 +49,9 @@ router.get('/list', function(req, res) {
                                                                 babies:babies,
                                                                 searchparams:searchparams,
                                                                 pageNum:pageNum,
-                                                                pageTotal:pageTotal
+                                                                pageTotal:pageTotal,
+                                                                offset:offset,
+                                        active_url:'baby/list'
                                                             });
                             }
                          )
@@ -132,7 +135,9 @@ router.post('/modify',function(req, res) {
         hobby:req.body.hobby,
         character:req.body.character,
         member_lx:req.body.member_lx,
-        course_count: req.body.course_count
+        course_count: req.body.course_count,
+        init_count:req.body.init_count,
+        xgrq:Date.now()
     };
     var conditions = {_id:req.body._id};
     var update_content     = {$set : baby};

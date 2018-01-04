@@ -40,7 +40,8 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th style="width:15%;">课程日期</th>
+                        <th style="width:4%;">序号</th>
+                        <th style="width:11%;">课程日期</th>
                         <th style="width:10%;">课程时段</th>
                         <th style="width:12%;">姓名</th>
                         <th style="width:12%;">父亲</th>
@@ -51,8 +52,9 @@
                     </thead>
                     <% if (courses.length) { %>
                         <tbody>
-                        <% courses.forEach(function(course){ %>
+                        <% courses.forEach(function(course,index){ %>
                         <tr>
+                            <td><%=index+1+parseInt(offset) %></td>
                             <td><%= toLocalDate(course.course_rq)  %></td>
                             <td><%= course.course_time %></td>
                             <td><%= course.baby_name %></td>
@@ -66,7 +68,7 @@
                         </tbody>
                     <% } %>
                     <tr>
-                        <td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td>
                         <td align="right" colspan="3">
                         <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
                         |

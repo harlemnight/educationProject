@@ -64,10 +64,28 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="/baby/list">宝贝计划 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/course/list">课程记录</a></li>
-                <li><a href="/course/add">课程签到</a></li>
-                <li><a href="/employee/list">员工信息</a></li>
+                <li
+                <% if(locals.active_url=='baby/list') { %>
+                class="active"
+                <% }%>
+                >
+                 <a href="/baby/list">宝贝计划 <span class="sr-only">(current)</span></a></li>
+                <li
+                <% if(locals.active_url=='course/list') { %>
+                class="active"
+                <% }%>
+                ><a href="/course/list">课程记录</a></li>
+                <li
+                <% if(locals.active_url=='course/add') { %>
+                class="active"
+                <% }%>
+                ><a href="/course/add">课程签到</a></li>
+                <li
+                <% if(locals.active_url=='employee/list') { %>
+                class="active"
+                <% }%>
+                >
+                <a href="/employee/list">员工信息</a></li>
 
             </ul>
             <!--

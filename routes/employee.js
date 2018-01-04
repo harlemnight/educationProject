@@ -85,7 +85,8 @@ router.get('/list', function(req, res) {
                                                             employees:employees,
                                                             searchparams:searchparams,
                                                             pageNum:pageNum,
-                                                            pageTotal:pageTotal
+                                                            pageTotal:pageTotal,
+                                active_url:'employee/list'
                                                         });
                         }
                 )
@@ -159,7 +160,8 @@ router.post('/modify',function(req, res) {
             email:req.body.email,
             home_address:req.body.home_address,
             phone_no1:req.body.phone_no1,
-            phone_no2:req.body.phone_no2
+            phone_no2:req.body.phone_no2,
+            xgrq:Date.now()
     };
     var conditions = {_id:req.body._id};
     var update     = {$set : employee};

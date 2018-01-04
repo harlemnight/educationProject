@@ -46,7 +46,9 @@ router.get('/list', function(req, res) {
                                                                     course_rqz:course_rqz,
                                                                     baby_name:baby_name,
                                                                     pageNum:pageNum,
-                                                                    pageTotal:pageTotal
+                                                                    pageTotal:pageTotal,
+                                                                    offset:offset,
+                                            active_url:'course/list'
                                                                     });
                                 }
                     )
@@ -60,14 +62,23 @@ router.get('/delete',function(req, res) {
     var course = {yxbz:'N',xgrq: Date.now()};
     var conditions = {_id:req.query.id};
     var update     = {$set : course};
-    Course.update(conditions,update,function(err) {
-        var msg = "";
-        if (err) {
-        }else {
-        }
-        res.redirect('/course/list');
-    });
-
+        Course.findOneAndUpdate(conditions,update,function(err,cs_doc) {
+            if (err) {
+                res.render('course/list', { status:false,msg:err.toString()});
+            }else if(!cs_doc) {
+                res.render('course/list', { status:false,msg:'查找课程失败'});
+            }else {
+                    var conditions = {_id:cs_doc.babyId};
+                    var update     = {$set : {xgrq: Date.now()} ,$inc:{init_count:1}};
+                        Baby.update(conditions,update,function(err) {
+                            if (err) {
+                                res.render('course/list', { status:false,msg:'更新宝贝信息失败'});
+                            }else {
+                                res.redirect('/course/list');
+                            }
+                        });
+            }
+        });
 });
 
 
@@ -82,7 +93,7 @@ router.get('/add',function(req, res) {
         pageNum = num;
     }
     var offset = (parseInt(pageNum)-1)*pageSize;
-    var condition = {yxbz:'Y',course_count:{$gt: 0}};
+    var condition = {yxbz:'Y',init_count:{$gt: 0}};
     Baby.find(condition,//这里是查询条件如果没有条件就是查询所有的数据，此参数可不传递  name: /周/
         function (err, babies) {
             if (err) {
@@ -96,7 +107,9 @@ router.get('/add',function(req, res) {
                                                 pageNum: pageNum,
                                                 pageTotal: pageTotal,
                                                 course_rq : req.query.course_rq,
-                                                course_time : req.query.course_time
+                                                course_time : req.query.course_time,
+                                                offset:offset,
+                        active_url:'course/add'
                                              });
                 })
             }
@@ -126,35 +139,44 @@ router.post('/add', function(req, res) {
                         phone_no1:baby_docs[i].phone_no1
                     }
                 );
-            }
+            };
+
                 Course.collection.insert(course_docs,function (err, docs) {
                     if (err) {
                         res.render('course/add', {status:false,msg:err.toString()});
                     } else {
-                        var pageNum = 1;
-                        var pageSize = 20;
-                        var offset = (pageNum-1)*pageSize;
-                    Baby.find({yxbz:'Y',course_count:{$gt: 0}},//这里是查询条件如果没有条件就是查询所有的数据，此参数可不传递  name: /周/
-                        function (err, babies) {
+                        Baby.update({_id:{$in: req.body.baby_id}},{$inc:{init_count:-1}},{multi:true} ,function(err) {
                             if (err) {
-                                res.render('course/add', { status:false,msg:err.toString()});
+                            }else {
+                                var pageNum = 1;
+                                var pageSize = 20;
+                                var offset = (pageNum-1)*pageSize;
+                                Baby.find({yxbz:'Y',init_count:{$gt: 0}},//这里是查询条件如果没有条件就是查询所有的数据，此参数可不传递  name: /周/
+                                    function (err, babies) {
+                                        if (err) {
+                                            res.render('course/add', { status:false,msg:err.toString()});
+                                        }
+                                        else {
+                                            Baby.count({yxbz:'Y',init_count:{$gt: 0}},function(err,count) {
+                                                var pageTotal = Math.ceil(count / pageSize);
+                                                res.render('course/add', {  status:true,
+                                                    msg:'保存记录卡成功',
+                                                    babies:babies,
+                                                    pageNum:pageNum,
+                                                    pageTotal: pageTotal,
+                                                    course_rq : req.body.course_rq,
+                                                    course_time : req.body.course_time,
+                                                    offset:offset,
+                                                    active_url:'course/add'
+                                                });
+                                            })
+                                        }
+                                    }).limit(pageSize).skip(offset).sort({'lrrq':-1});
                             }
-                            else {
-                                Baby.count({yxbz:'Y',course_count:{$gt: 0}},function(err,count) {
-                                    var pageTotal = Math.ceil(count / pageSize);
-                                    res.render('course/add', {  status:true,
-                                                                msg:'保存记录卡成功',
-                                                                babies:babies,
-                                                                pageNum:pageNum,
-                                                                pageTotal: pageTotal,
-                                                                course_rq : req.body.course_rq,
-                                                                course_time : req.body.course_time
-                                                            });
-                                })
-                            }
-                        }).limit(pageSize).skip(offset).sort({'lrrq':-1});
+                        });
 
-                    }
+
+                            }
                 }
             );
 

@@ -42,7 +42,8 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th style="width:22%;">姓名</th>
+                        <th style="width:4%;">序号</th>
+                        <th style="width:18%;">姓名</th>
                         <th style="width:22%;">父亲</th>
                         <th style="width:22%;">母亲</th>
                         <th style="width:23%;">联系电话1</th>
@@ -51,13 +52,14 @@
                     </thead>
                     <% if (babies.length) { %>
                     <tbody>
-                    <% babies.forEach(function(baby){ %>
+                    <% babies.forEach(function(baby,index){ %>
                     <tr>
+                        <td><%=index+1+parseInt(offset) %></td>
                         <td><%= baby.baby_name %></td>
                         <td><%= baby.father %></td>
                         <td><%= baby.mather %></td>
                         <td><%= baby.phone_no1 %></td>
-                        <td><input type="checkbox" name="baby_id"
+                        <td><input type="checkbox" name="baby_id" id="<%='checkbox'+index %>"
                                    value="<%=baby._id %>">
                         </td>
                     </tr>
@@ -65,7 +67,7 @@
                     </tbody>
                     <% } %>
                     <tr>
-                        <td></td><td></td>
+                        <td></td><td></td><td></td>
                         <td align="right" colspan="3">
                             <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
                             |
@@ -96,12 +98,15 @@
     };
 
     function formCheck(){
+        if($('input[type=checkbox]').is(":checked")==false){
+            alert("请勾选签到人员");
+            return false;
+        }
         if ( $('#course_rq').val().length==0){
             alert("请输入课程日期");
             return false;
-        }else {
-        return true;
         }
+
     };
 
     $('.form_date').datetimepicker({
