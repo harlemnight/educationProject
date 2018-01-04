@@ -42,11 +42,11 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th style="width:20%;">姓名</th>
-                        <th style="width:20%;">父亲</th>
-                        <th style="width:20%;">母亲</th>
-                        <th style="width:20%;">联系电话1</th>
-                        <th style="width:20%;"><input type="checkbox" onclick="selectAll(this);"  >全选</th>
+                        <th style="width:22%;">姓名</th>
+                        <th style="width:22%;">父亲</th>
+                        <th style="width:22%;">母亲</th>
+                        <th style="width:23%;">联系电话1</th>
+                        <th style="width:10%;"><input type="checkbox" onclick="selectAll(this);"  >全选</th>
                     </tr>
                     </thead>
                     <% if (babies.length) { %>
@@ -65,8 +65,8 @@
                     </tbody>
                     <% } %>
                     <tr>
-                        <td></td><td></td><td></td><td></td>
-                        <td>
+                        <td></td><td></td>
+                        <td align="right" colspan="3">
                             <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
                             |
                             <%=parseInt(pageNum) %>

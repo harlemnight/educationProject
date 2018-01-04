@@ -17,10 +17,9 @@
                     <th style="width:10%;">年龄</th>
                     <th style="width:10%;">邮箱</th>
                     <th style="width:15%;">联系电话1</th>
-                    <th style="width:15%;">联系电话2</th>
-                    <th style="width:20%;">联系地址</th>
-                    <th></th>
-                    <th style="width:20%;"  ><a href="/employee/add">添加</a></th>
+                    <th style="width:29%;">联系地址</th>
+                    <th style="width:1%;"  ></th>
+                    <th style="width:10%;"  ><a href="/employee/add">添加</a></th>
                 </tr>
                 </thead>
                 <% if (status) { %>
@@ -32,11 +31,12 @@
                     <td><%= employee.age %></td>
                     <td><%= employee.email %></td>
                     <td><%= employee.phone_no1 %></td>
-                    <td><%= employee.phone_no2 %></td>
                     <td><%= employee.home_address %></td>
-                    <td><a href="/employee/modify/<%=employee._id %>">修改</a></td>
-                    <td><a href="/employee/delete?id=<%=employee._id %>"
-                           onclick="if(confirm('确定删除?')==false)return false;">删除</a></td>
+                    <td></td>
+                    <td><a href="/employee/modify/<%=employee._id %>">修改</a>
+                        <a href="/employee/delete?id=<%=employee._id %>"
+                           onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                    </td>
                 </tr>
                 <% }) %>
                 </tbody>
@@ -44,8 +44,8 @@
                 <% } else {%>
                 <% } %>
                 <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    <td>
+                    <td></td><td></td><td></td><td></td>
+                    <td align="right" colspan="3" >
                         <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
                         |
                         <%=parseInt(pageNum) %>
@@ -55,7 +55,6 @@
                         <input type="text" id="pageNum" style="width:30px;"/>
                         <a href="javascript:void(0);" onclick="forward(0)">跳转</a>
                     </td>
-
                 </tr>
 
             </table>

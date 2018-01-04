@@ -42,11 +42,11 @@
                     <tr>
                         <th style="width:15%;">课程日期</th>
                         <th style="width:10%;">课程时段</th>
-                        <th style="width:10%;">姓名</th>
-                        <th style="width:10%;">父亲</th>
-                        <th style="width:10%;">母亲</th>
-                        <th style="width:10%;">联系电话1</th>
-                        <th style="width:18%;">操作</th>
+                        <th style="width:12%;">姓名</th>
+                        <th style="width:12%;">父亲</th>
+                        <th style="width:12%;">母亲</th>
+                        <th style="width:12%;">联系电话1</th>
+                        <th style="width:10%;">操作</th>
                     </tr>
                     </thead>
                     <% if (courses.length) { %>
@@ -66,8 +66,8 @@
                         </tbody>
                     <% } %>
                     <tr>
-                        <td></td><td></td><td></td><td></td><td></td><td></td>
-                        <td>
+                        <td></td><td></td><td></td><td></td>
+                        <td align="right" colspan="3">
                         <a href="javascript:void(0);" onclick="forward(-1)">上一页</a>
                         |
                         <%=parseInt(pageNum) %>
