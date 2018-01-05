@@ -141,7 +141,11 @@ router.post('/add', function(req, res) {
                 );
             };
 
-                Course.collection.insert(course_docs,function (err, docs) {
+            //这里由于采用非内嵌方式存储宝贝签到信息（多个文档），因此无法同时满足
+            //不存在则写入，存在则更新
+            //因此comment this code
+            //采用内嵌数组的方式来存储宝贝签到信息
+            Course.collection.insert(course_docs,function (err, docs) {
                     if (err) {
                         res.render('course/add', {status:false,msg:err.toString()});
                     } else {
@@ -174,13 +178,9 @@ router.post('/add', function(req, res) {
                                     }).limit(pageSize).skip(offset).sort({'lrrq':-1});
                             }
                         });
-
-
                             }
                 }
             );
-
-
         }
     });
 
