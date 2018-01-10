@@ -119,6 +119,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="educationProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="educationProject" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -147,18 +159,6 @@
               <item name="educationProject" type="cbb8eebc:String" user="educationProject" />
               <item name="public" type="cbb8eebc:String" user="public" />
               <item name="javascripts" type="cbb8eebc:String" user="javascripts" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="educationProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="educationProject" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -248,11 +248,12 @@
       <workItem from="1515546303600" duration="2292000" />
       <workItem from="1515587118447" duration="8086000" />
       <workItem from="1515598083990" duration="19000" />
+      <workItem from="1515599466205" duration="56000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="311914000" />
+    <option name="totallyTimeSpent" value="311970000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
