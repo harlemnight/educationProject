@@ -25,8 +25,4 @@ router.get('/', function(req, res, next) {
 
 
 
-router.get('/2', function(req, res, next) {
-    res.render('index', { });
-});
-
 module.exports = router;
